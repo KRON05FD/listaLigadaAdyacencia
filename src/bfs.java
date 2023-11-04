@@ -23,7 +23,9 @@ public class bfs {
     public void agregaBorde(int origen, int destino) {
         listaAdyacente[origen].add(destino);  // Agregamos las aristas al grafo mediante la lista ligada de adyacencia
     }
-
+    
+    //Clase de recorrido transversal hacemos uso de la clase Queue que administra las colas, con ciclo while vamos agregando los vertices para mostrar
+    //el recorrido que tendra el grafo
     public void bfsTraversal(int inicioVertice) {
         boolean[] recorrido = new boolean[numVertices];
         StringBuilder result = new StringBuilder();
@@ -34,7 +36,7 @@ public class bfs {
 
         while (!queue.isEmpty()) {
             int verticeActual = queue.poll();
-            result.append(vertices[verticeActual]).append(" ");  // Agrega la etiqueta del vértice al resultado
+            result.append(vertices[verticeActual]).append(" ");  // Agrega la etiqueta del vertice al resultado
 
             for (int adyacente : listaAdyacente[verticeActual]) {
                 if (!recorrido[adyacente]) {
