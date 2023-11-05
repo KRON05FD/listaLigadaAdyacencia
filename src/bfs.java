@@ -4,7 +4,6 @@ import java.util.Queue; //Clase para administrar colas en memoria
 import javax.swing.JOptionPane;
 
 //Clase para hacer el recorrido BFS
-
 public class bfs {
 
     private int numVertices;
@@ -23,47 +22,52 @@ public class bfs {
     public void agregaBorde(int origen, int destino) {
         listaAdyacente[origen].add(destino);  // Agregamos las aristas al grafo mediante la lista ligada de adyacencia
     }
-    
-    //Clase de recorrido transversal hacemos uso de la clase Queue que administra las colas, con ciclo while vamos agregando los vertices para mostrar
-    //el recorrido que tendra el grafo
+
+    //Clase que recorre el grafo hacemos uso de la clase Queue que sirve para administrar colas, con ciclo while vamos agregando los vertices para mostrar
+    //el recorrido que tendra el grafo en la variable resultadoado,
     public void bfsTraversal(int inicioVertice) {
         boolean[] recorrido = new boolean[numVertices];
-        StringBuilder result = new StringBuilder();
-        Queue<Integer> queue = new LinkedList<>();
+        StringBuilder resultado = new StringBuilder();
+        Queue<Integer> cola = new LinkedList<>();
 
         recorrido[inicioVertice] = true;
-        queue.add(inicioVertice);
+        cola.add(inicioVertice);
 
-        while (!queue.isEmpty()) {
-            int verticeActual = queue.poll();
-            result.append(vertices[verticeActual]).append(" ");  // Agrega la etiqueta del vertice al resultado
+        while (!cola.isEmpty()) {
+            int verticeActual = cola.poll();
+            resultado.append(vertices[verticeActual]).append(" ");  // Agrega la etiqueta del vertice al resultadoado
 
             for (int adyacente : listaAdyacente[verticeActual]) {
                 if (!recorrido[adyacente]) {
                     recorrido[adyacente] = true;
-                    queue.add(adyacente);
+                    cola.add(adyacente);
                 }
             }
         }
 
-        JOptionPane.showMessageDialog(null, "Recorrido bfs desde el vertice " + vertices[inicioVertice] + ":\n" + result.toString());
+        JOptionPane.showMessageDialog(null, "Recorrido BFS desde el vertice " + vertices[inicioVertice] + ":\n" + resultado.toString());
     }
 
     public static void main(String[] args) {
         int numVertices = 6;
         char[] vertices = {'A', 'B', 'C', 'D', 'E', 'F'};
-        bfs graph = new bfs(numVertices, vertices);  // Crear una instancia de la clase bfs
+        bfs graficaLista = new bfs(numVertices, vertices);  // Crear una instancia de la clase bfs
 
-        graph.agregaBorde(0, 1);
-        graph.agregaBorde(0, 2);
-        graph.agregaBorde(1, 3);
-        graph.agregaBorde(1, 4);
-        graph.agregaBorde(2, 5);
+        graficaLista.agregaBorde(0, 1);
+        graficaLista.agregaBorde(0, 2);
+        graficaLista.agregaBorde(1, 3);
+        graficaLista.agregaBorde(1, 4);
+        graficaLista.agregaBorde(2, 5);
+        graficaLista.agregaBorde(3, 2);
+        graficaLista.agregaBorde(0, 4);
+        graficaLista.agregaBorde(1, 5);
 
-        StringBuilder listaAdyacenteString = new StringBuilder("Lista Ligada de Adyacencia:\n");
+        
+
+        StringBuilder listaAdyacenteString = new StringBuilder("Lista ligada de adyacencia:\n");
         for (int i = 0; i < numVertices; i++) {
             listaAdyacenteString.append(vertices[i]).append(" -> ");
-            for (int adyacente : graph.listaAdyacente[i]) {
+            for (int adyacente : graficaLista.listaAdyacente[i]) {
                 listaAdyacenteString.append(vertices[adyacente]).append(" -> ");  // Muestra las etiquetas de los vértices en la lista ligada
             }
             listaAdyacenteString.append("null\n");
@@ -71,6 +75,6 @@ public class bfs {
 
         JOptionPane.showMessageDialog(null, listaAdyacenteString.toString());  // Muestra la lista ligada de adyacencia
 
-        graph.bfsTraversal(0);  // Realiza el recorrido bfs desde el vértice 0 y muestra el resultado
+        graficaLista.bfsTraversal(0);  // Realiza el recorrido bfs desde el vértice 0 y muestra el resultadoado
     }
 }
